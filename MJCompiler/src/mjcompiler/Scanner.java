@@ -357,7 +357,7 @@ public class Scanner {
                                     case "PUBLIC":
                                         tok.name = EnumToken.CLASS;
                                         return tok;
-                                    case "STATIC:
+                                    case "STATIC":
                                         tok.name = EnumToken.CLASS;
                                         return tok;
                                     case "VOID":
