@@ -212,10 +212,13 @@ public class Parser
             case IF:
                 match(EnumToken.IF);
                 match(EnumToken.LPARENTHESE);
+                
                 Expression();
                 match(EnumToken.RPARENTHESE);
+                
                 Statement();
                 match(EnumToken.ELSE);
+                
                 Statement();
                 break;
             case WHILE:
@@ -239,13 +242,49 @@ public class Parser
                 
         }
     }
+    
+    /*
+     
+ *
+ * 9. Expression → INTEGER_LITERAL Exp'
+ *               | true            Exp'
+ *               | false           Exp'
+ *               | ID              Exp'
+ *               | this            Exp'
+ *               | ! Expression            Exp'
+ *               | ( Expression )          Exp'
+ *               | new New'
+ * 
+ * 10. New' →    int [ Expression ]  Exp'
+ *               | ID ( )            Exp'
+ *
+ * 11. Exp' → Op Expression Exp'
+ *               | [Expression] Exp'
+ *               | . DOT
+ *
+ * 12. DOT → lenght Exp'
+ *               | ID ( (Expression ( , Expression )* )? ) Exp'
+ *
+ * 13. Op → && | < | > | == | != | + | - | * | /
+    */
 
           private void ID_() throws CompilerException
     {
-        
+        if(lToken.value == "["){
+            advance();
+            Expression();
+            match(EnumToken.RBRACKET);
+            match(EnumToken.EQ);
+            Expression();
+            match(EnumToken.SEMICOLON);
+        } 
+        else if(lToken.value == "=") {
+            advance();
+            Expression();
+            match(EnumToken.SEMICOLON);
+        }
         
     }
-
      
       private void Expression() throws CompilerException
     {
